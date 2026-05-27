@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Pink Queen — kolory z Figmy */
+  --color-pink:       #F0147A;   /* główny hot pink */
+  --color-pink-light: #FADADF;   /* jasny róż (tło pillów, hover) */
+  --color-pink-dark:  #C4006A;   /* ciemniejszy akcent */
+  --color-gold:       #F5C518;   /* złoty badge Kul Mocy */
+  --color-bg:         #F8F5F7;   /* tło strony z iOS kodu */
+  --color-navy:       #1E1B2E;   /* ciemna karta "Nowość" */
+
+  --color-background: #F8F5F7;
+  --color-foreground: #1A1A1A;
+}
+
+body {
+  background: #F8F5F7;
+  color: #1A1A1A;
+  font-family: Arial, Helvetica, sans-serif;
+}
