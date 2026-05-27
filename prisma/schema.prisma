@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(cuid())
+  phone          String          @unique
+  name           String?
+  createdAt      DateTime        @default(now())
+  referralCode   String          @unique @default(cuid())
+  loyaltyAccount LoyaltyAccount?
+  transactions   Transaction[]
+}
+
+model LoyaltyAccount {
+  id      String @id @default(cuid())
+  userId  String @unique
+  balance Int    @default(0)
+  tier    Int    @default(1)
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model Transaction {
+  id          String          @id @default(cuid())
+  userId      String
+  points      Int
+  type        String          // EARN | REDEEM | REFERRAL
+  description String
+  createdAt   DateTime        @default(now())
+  user        User            @relation(fields: [userId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  calories    Int
+  tags        String   // JSON array: ["WEGE","OSTRE"]
+  imageUrl    String?
+  isAvailable Boolean  @default(true)
+}
+
+model Reward {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  pointsCost  Int
+  imageUrl    String?
+  isAvailable Boolean @default(true)
+}
+
