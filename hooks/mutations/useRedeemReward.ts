@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "@/lib/apiClient";
 import { RedeemRewardResponse } from "@/types/RedeemRewardResponse.type";
 
-export function useRedeemReward() {
+export const useRedeemReward = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -25,4 +25,4 @@ export function useRedeemReward() {
       });
     },
   });
-}
+};
