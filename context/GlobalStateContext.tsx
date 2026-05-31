@@ -1,8 +1,11 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "@/lib/apiClient";
 import type { User } from "@/types/User.type";
+
+const USER_KEY = [{ resource: "user", scope: "me" }] as const;
 
 type GlobalState = {
   user: User | null;
@@ -23,21 +26,21 @@ const hasSessionCookie = () =>
   document.cookie.split(";").some((c) => c.trim().startsWith("kq_has_session="));
 
 export function GlobalStateProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!hasSessionCookie()) {
-      setIsLoading(false);
-      return;
-    }
+  const { data: user = null, isLoading } = useQuery<User | null>({
+    queryKey: USER_KEY,
+    queryFn: async () => {
+      const { data } = await apiClient.get<User>("/user/me");
+      return data;
+    },
+    enabled: hasSessionCookie(),
+    staleTime: 30_000,
+  });
 
-    apiClient
-      .get<User>("/user/me")
-      .then(({ data }) => setUser(data))
-      .catch(() => setUser(null))
-      .finally(() => setIsLoading(false));
-  }, []);
+  function setUser(u: User | null) {
+    queryClient.setQueryData(USER_KEY, u);
+  }
 
   return (
     <GlobalStateContext.Provider value={{ user, setUser, isLoading }}>
