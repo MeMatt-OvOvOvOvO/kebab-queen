@@ -81,7 +81,7 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [x] Sesja przez httpOnly cookie
 - [x] Proxy chroniący chronione trasy (401 na API, redirect na `/login` dla stron)
 - [x] Ekran logowania (`/login`)
-- [ ] Ekran główny po zalogowaniu — saldo KM, skróty do sekcji
+- [x] Ekran główny po zalogowaniu — saldo KM, skróty do sekcji
 - [ ] Wirtualna Karta — ekran z kodem QR z ID użytkownika (`qrcode.react`)
 - [ ] Portfel Kul Mocy — animacja "wpływania" punktów, poziom lojalności (1–7 gwiazdek)
 - [ ] Historia transakcji — lista z datą, opisem, liczbą punktów
@@ -136,7 +136,7 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [ ] Warianty "Stopnia Różowości" (3 motywy — CSS variables)
 - [ ] Ikony Kul Mocy (1–7 gwiazdek zależnie od poziomu)
 - [ ] Responsywność — mobile-first, iPhone SE → duże Androidy
-- [ ] Animacje przejść między stronami (Framer Motion lub CSS transitions)
+- [ ] Animacje przejść między stronami (Framer Motion)
 - [ ] Loading states i error states na wszystkich ekranach
 
 ---
