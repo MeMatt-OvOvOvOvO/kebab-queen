@@ -98,12 +98,12 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 ### Katalog Nagród
 
 - [x] API listy nagród i wymiany punktów
-- [ ] Ekran Katalogu Nagród — karty z kosztem w KM, przycisk "Wymień"
-- [ ] Obsługa błędu "Za mało Kul Mocy"
+- [x] Ekran Katalogu Nagród — karty z kosztem w KM, przycisk "Wymień"
+- [x] Obsługa błędu "Za mało Kul Mocy"
 
 ### AI Queen (Czatbot)
 
-- [ ] Integracja z Claude API (system prompt z menu i FAQ Kebab Queen)
+- [ ] Integracja z Claude API / OpenAI API (system prompt z menu i FAQ Kebab Queen)
 - [ ] Ekran czatu — dymki, awatar, animacja "pisze..."
 - [ ] Rozpoznawanie intencji smakowych ("lekkie", "bez cebuli")
 - [ ] Odpowiedź na pytanie "Gdzie najbliższa Queen?" (hardkodowane lokalizacje)

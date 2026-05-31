@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
 type BaseProps = {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "gold";
   size?: "sm" | "md" | "lg";
 };
 
@@ -15,15 +15,10 @@ type ButtonAsLink = BaseProps &
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<NonNullable<BaseProps["variant"]>, string> = {
-  primary: "text-white disabled:opacity-60",
-  secondary: "font-semibold",
-  ghost: "font-medium",
-};
-
-const variantInlineStyles: Record<NonNullable<BaseProps["variant"]>, React.CSSProperties> = {
-  primary: { background: "linear-gradient(135deg, #F0147A 0%, #C4006A 100%)" },
-  secondary: { background: "#FADADF", color: "#F0147A" },
-  ghost: { color: "#F0147A" },
+  primary:   "bg-gradient-to-br from-pink to-pink-dark text-white disabled:opacity-60",
+  secondary: "bg-pink-light text-pink font-semibold",
+  ghost:     "text-pink font-medium",
+  gold:      "bg-gradient-to-br from-gold to-gold-warm text-navy disabled:opacity-60",
 };
 
 const sizeStyles: Record<NonNullable<BaseProps["size"]>, string> = {
@@ -41,18 +36,17 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const classes = `inline-flex items-center justify-center font-semibold transition-opacity hover:opacity-90 ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
-  const style = variantInlineStyles[variant];
 
   if (href !== undefined) {
     return (
-      <Link href={href} className={classes} style={style} {...(props as ComponentPropsWithoutRef<"a">)}>
+      <Link href={href} className={classes} {...(props as ComponentPropsWithoutRef<"a">)}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} style={style} {...(props as ComponentPropsWithoutRef<"button">)}>
+    <button className={classes} {...(props as ComponentPropsWithoutRef<"button">)}>
       {children}
     </button>
   );

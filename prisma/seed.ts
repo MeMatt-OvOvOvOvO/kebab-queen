@@ -112,21 +112,25 @@ async function main() {
       name: "Darmowy Kebab klasyczny",
       description: "Wymień Kule Mocy na ulubiony klasyk.",
       pointsCost: 500,
+      imageUrl: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&q=80",
     },
     {
       name: "Darmowe frytki z serem",
       description: "Box frytek z serem na koszt Kebab Queen.",
       pointsCost: 150,
+      imageUrl: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80",
     },
     {
       name: "Duży napój",
       description: "Cola, Sprite lub woda — Twój wybór.",
       pointsCost: 100,
+      imageUrl: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&q=80",
     },
     {
       name: "Zestaw Premium",
       description: "Duży Kebab Queen + Frytki z Serem + Napój.",
       pointsCost: 800,
+      imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
     },
   ];
 
