@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { MapPin, Navigation, Search } from "lucide-react";
-import { useCurrentUser } from "@/hooks/queries/useCurrentUser";
+import { useGlobalState } from "@/context/GlobalStateContext";
 import { useProducts } from "@/hooks/queries/useProducts";
 
 export default function Home() {
-  const { data: user } = useCurrentUser();
+  const { user } = useGlobalState();
   const { data: products, isLoading } = useProducts();
 
   const featured = products?.filter((p) => p.isAvailable).slice(0, 2) ?? [];
