@@ -91,9 +91,9 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 
 - [x] Baza 10 produktów z cenami, opisami, tagami i kaloriami
 - [x] API filtrowania po tagach (`?tag=WEGE&tag=OSTRE`)
-- [ ] Ekran Menu — lista produktów z filtrami
-- [ ] Karta produktu — zdjęcie, cena, opis, tagi
-- [ ] Licznik kroków do spalenia kalorii (prosta kalkulacja na froncie)
+- [x] Ekran Menu — lista produktów z filtrami
+- [x] Karta produktu — zdjęcie, cena, opis, tagi
+- [x] Licznik kroków do spalenia kalorii (prosta kalkulacja na froncie)
 
 ### Katalog Nagród
 
@@ -132,7 +132,7 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [x] Paleta kolorów Pink Queen w Tailwind (`#F0147A`, złoto, `#F8F5F7`)
 - [x] Navbar + Footer (desktop)
 - [x] Strona główna — hero banner, karty ofert, sidebar z lokalizacją
-- [ ] Wspólne komponenty: `Button`, `Card`, `Badge`
+- [x] Wspólne komponenty: `Button`, `Card`, `Badge`
 - [ ] Warianty "Stopnia Różowości" (3 motywy — CSS variables)
 - [ ] Ikony Kul Mocy (1–7 gwiazdek zależnie od poziomu)
 - [ ] Responsywność — mobile-first, iPhone SE → duże Androidy
