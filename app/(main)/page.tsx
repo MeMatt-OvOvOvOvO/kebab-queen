@@ -1,27 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { MapPin, Navigation, Search } from "lucide-react";
-
-// Tymczasowe dane — potem z bazy
-const offers = [
-  {
-    id: 1,
-    title: "Specjał Środka Tygodnia",
-    badge: "25% TANIEJ",
-    description:
-      "Odbierz 25% zniżki na wszystkie Platynowe Półmiski w każdy wtorek i środę. Oferta ograniczona czasowo!",
-    image: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&q=80",
-  },
-  {
-    id: 2,
-    title: "Królewska Uczta",
-    badge: "GRATIS",
-    description:
-      "Dodaj porcję frytek truflowych do dowolnego wrapa zupełnie za darmo w ten piątek.",
-    image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
-  },
-];
+import { useCurrentUser } from "@/hooks/queries/useCurrentUser";
+import { useProducts } from "@/hooks/queries/useProducts";
 
 export default function Home() {
+  const { data: user } = useCurrentUser();
+  const { data: products, isLoading } = useProducts();
+
+  const featured = products?.filter((p) => p.isAvailable).slice(0, 2) ?? [];
+
   return (
     <div className="flex gap-6 items-start">
 
@@ -42,8 +31,14 @@ export default function Home() {
             </div>
             <div className="text-white">
               <h1 className="text-2xl font-bold leading-tight">
-                Witaj ponownie,<br />Królowo!
+                {user?.name ? `Witaj, ${user.name}!` : "Witaj ponownie,"}<br />
+                {user?.name ? "" : "Królowo!"}
               </h1>
+              {user?.loyalty && (
+                <p className="text-white/80 text-sm mt-1">
+                  Saldo: <strong>{user.loyalty.balance.toLocaleString("pl-PL")} Kul Mocy</strong>
+                </p>
+              )}
             </div>
           </div>
           <Link
@@ -55,49 +50,63 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Oferty */}
+        {/* Polecane produkty */}
         <div>
-          <h2 className="text-xl font-bold mb-4">Ekskluzywne oferty dla Królowej</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {offers.map((offer) => (
-              <div
-                key={offer.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm"
-              >
-                {/* Zdjęcie */}
-                <div className="h-44 overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={offer.image}
-                    alt={offer.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+          <h2 className="text-xl font-bold mb-4">Polecane dla Królowej</h2>
 
-                {/* Treść */}
-                <div className="p-4 flex flex-col gap-3">
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-bold text-base">{offer.title}</h3>
-                    <span
-                      className="text-sm font-bold shrink-0"
-                      style={{ color: "#F0147A" }}
-                    >
-                      {offer.badge}
-                    </span>
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[0, 1].map((i) => (
+                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse">
+                  <div className="h-44 bg-gray-100" />
+                  <div className="p-4 flex flex-col gap-3">
+                    <div className="h-4 bg-gray-100 rounded w-3/4" />
+                    <div className="h-3 bg-gray-100 rounded w-full" />
+                    <div className="h-8 bg-gray-100 rounded-full" />
                   </div>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    {offer.description}
-                  </p>
-                  <button
-                    className="w-full py-2.5 rounded-full text-sm font-semibold transition-colors"
-                    style={{ background: "#FADADF", color: "#F0147A" }}
-                  >
-                    Odbierz ofertę
-                  </button>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {featured.map((product) => (
+                <div key={product.id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                  <div className="h-44 overflow-hidden bg-gray-50">
+                    {product.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-300 text-4xl">
+                        🥙
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-4 flex flex-col gap-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-bold text-base">{product.name}</h3>
+                      <span className="text-sm font-bold shrink-0 text-gray-700">
+                        {product.price.toFixed(2)} PLN
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                      {product.description}
+                    </p>
+                    <Link
+                      href="/menu"
+                      className="w-full py-2.5 rounded-full text-sm font-semibold text-center transition-colors"
+                      style={{ background: "#FADADF", color: "#F0147A" }}
+                    >
+                      Zobacz w menu
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -112,7 +121,6 @@ export default function Home() {
           </div>
           <p className="text-sm text-gray-400">Wyszukaj najbliższą lokalizację</p>
 
-          {/* Pole wyszukiwania */}
           <div
             className="flex items-center gap-2 px-4 py-2.5 rounded-full border"
             style={{ borderColor: "#F0147A" }}
@@ -125,9 +133,8 @@ export default function Home() {
             />
           </div>
 
-          {/* Placeholder mapy */}
           <div
-            className="h-36 rounded-xl flex items-center justify-center relative overflow-hidden"
+            className="h-36 rounded-xl flex items-center justify-center"
             style={{ background: "#E8E8F0" }}
           >
             <div className="text-center">
@@ -136,7 +143,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Prowadź do mnie */}
           <button
             className="w-full py-3 rounded-full text-white font-semibold flex items-center justify-center gap-2 transition-opacity hover:opacity-90"
             style={{ background: "#F0147A" }}
@@ -148,19 +154,20 @@ export default function Home() {
 
         {/* Nowość! */}
         <div
-          className="rounded-2xl p-5 flex flex-col gap-2 overflow-hidden relative"
+          className="rounded-2xl p-5 flex flex-col gap-2"
           style={{ background: "#1E1B2E" }}
         >
           <p className="text-white font-bold text-lg">Nowość!</p>
           <p className="text-gray-300 text-sm leading-relaxed">
             Spróbuj naszych Wrapów Dragon Fire z pikantnym miodem ghost pepper.
           </p>
-          <button
+          <Link
+            href="/menu"
             className="text-sm font-semibold mt-1 text-left"
             style={{ color: "#F0147A" }}
           >
             Dowiedz się więcej →
-          </button>
+          </Link>
         </div>
       </div>
     </div>

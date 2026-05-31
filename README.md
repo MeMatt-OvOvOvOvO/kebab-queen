@@ -80,7 +80,7 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [x] Logowanie numerem telefonu (bez SMS — wpisanie numeru tworzy/odnajduje konto)
 - [x] Sesja przez httpOnly cookie
 - [x] Proxy chroniący chronione trasy (401 na API, redirect na `/login` dla stron)
-- [ ] Ekran logowania (`/login`)
+- [x] Ekran logowania (`/login`)
 - [ ] Ekran główny po zalogowaniu — saldo KM, skróty do sekcji
 - [ ] Wirtualna Karta — ekran z kodem QR z ID użytkownika (`qrcode.react`)
 - [ ] Portfel Kul Mocy — animacja "wpływania" punktów, poziom lojalności (1–7 gwiazdek)
