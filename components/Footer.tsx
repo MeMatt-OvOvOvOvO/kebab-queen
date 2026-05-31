@@ -1,9 +1,8 @@
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-100 mt-16">
+    <footer className="bg-white border-t border-gray-100 mt-16 pb-20 md:pb-0">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-
           {/* Logo + opis */}
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
@@ -26,18 +25,33 @@ export default function Footer() {
           {/* Eksploruj */}
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold text-sm">Eksploruj</h4>
-            {["Nasza historia", "Pełne Menu", "Franchising", "Dla prasy"].map((item) => (
-              <a key={item} href="#" className="text-sm text-gray-500 hover:text-gray-800 transition-colors">
-                {item}
-              </a>
-            ))}
+            {["Nasza historia", "Pełne Menu", "Franchising", "Dla prasy"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
+                >
+                  {item}
+                </a>
+              ),
+            )}
           </div>
 
           {/* Wsparcie */}
           <div className="flex flex-col gap-3">
             <h4 className="font-semibold text-sm">Wsparcie</h4>
-            {["Kontakt", "FAQ", "Karty podarunkowe", "Polityka prywatności"].map((item) => (
-              <a key={item} href="#" className="text-sm text-gray-500 hover:text-gray-800 transition-colors">
+            {[
+              "Kontakt",
+              "FAQ",
+              "Karty podarunkowe",
+              "Polityka prywatności",
+            ].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
+              >
                 {item}
               </a>
             ))}
@@ -66,7 +80,7 @@ export default function Footer() {
         </div>
 
         {/* Dolny pasek */}
-        <div className="border-t border-gray-100 pt-6 flex items-center justify-between">
+        <div className="border-t border-gray-100 pt-6 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex items-center gap-2">
             <span
               className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs"
@@ -78,7 +92,11 @@ export default function Footer() {
           </div>
           <div className="flex gap-6">
             {["Instagram", "TikTok", "Twitter"].map((s) => (
-              <a key={s} href="#" className="text-sm text-gray-400 hover:text-gray-700 transition-colors">
+              <a
+                key={s}
+                href="#"
+                className="text-sm text-gray-400 hover:text-gray-700 transition-colors"
+              >
                 {s}
               </a>
             ))}
