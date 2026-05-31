@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={geist.className}>
+    <html lang="pl" className={plusJakartaSans.className}>
       <body className="min-h-screen" style={{ background: "#F8F5F7" }}>
         {children}
       </body>

@@ -4,7 +4,15 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { UserCircle, LogIn, LogOut, Star, X, MessageCircle, LifeBuoy } from "lucide-react";
+import {
+  UserCircle,
+  LogIn,
+  LogOut,
+  Star,
+  X,
+  MessageCircle,
+  LifeBuoy,
+} from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useLogout } from "@/hooks/mutations/useLogout";
 
@@ -36,7 +44,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setDesktopDropdownOpen(false);
       }
     };
@@ -86,9 +97,13 @@ export default function Navbar() {
                   key={href}
                   href={href}
                   className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                    active ? "font-semibold" : "text-gray-600 hover:text-pink hover:bg-pink-light"
+                    active
+                      ? "font-semibold"
+                      : "text-gray-600 hover:text-pink hover:bg-pink-light"
                   }`}
-                  style={active ? { color: "#F0147A", background: "#FADADF" } : {}}
+                  style={
+                    active ? { color: "#F0147A", background: "#FADADF" } : {}
+                  }
                 >
                   {label}
                 </Link>
@@ -101,7 +116,10 @@ export default function Navbar() {
             {/* Kule Mocy badge — desktop only */}
             <div className="hidden md:block">
               {isLoading ? (
-                <div className="h-8 w-36 rounded-full animate-pulse" style={{ background: "#F5E9A0" }} />
+                <div
+                  className="h-8 w-36 rounded-full animate-pulse"
+                  style={{ background: "#F5E9A0" }}
+                />
               ) : (
                 <div
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-semibold"
@@ -180,22 +198,26 @@ export default function Navbar() {
       </header>
 
       {/* Mobile profile drawer overlay */}
-      <div
-        className={`fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity duration-300 ${
-          profileDrawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      <aside
+        className={`fixed inset-0 bg-black/40 z-52 md:hidden transition-opacity duration-300  ${
+          profileDrawerOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setProfileDrawerOpen(false)}
       />
 
       {/* Mobile profile drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white z-50 shadow-2xl flex flex-col md:hidden transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-72 bg-white z-53 shadow-2xl flex flex-col md:hidden transform transition-transform duration-300 ${
           profileDrawerOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between px-5 h-16 border-b border-gray-100 shrink-0">
-          <span className="font-bold text-sm text-gray-500 uppercase tracking-wide">Moje konto</span>
+          <span className="font-bold text-sm text-gray-500 uppercase tracking-wide">
+            Moje konto
+          </span>
           <button
             onClick={() => setProfileDrawerOpen(false)}
             className="text-gray-400 hover:text-gray-600 p-1"
@@ -213,16 +235,25 @@ export default function Navbar() {
                 className="w-12 h-12 rounded-full flex items-center justify-center border-2 shrink-0"
                 style={{ borderColor: "#F0147A" }}
               >
-                <UserCircle size={28} strokeWidth={1.5} className="text-gray-400" />
+                <UserCircle
+                  size={28}
+                  strokeWidth={1.5}
+                  className="text-gray-400"
+                />
               </div>
               <div className="min-w-0">
-                <p className="font-bold text-gray-900 truncate">{user.name ?? user.phone}</p>
+                <p className="font-bold text-gray-900 truncate">
+                  {user.name ?? user.phone}
+                </p>
                 <p className="text-sm font-medium" style={{ color: "#F0147A" }}>
                   {tierLabel(user.loyalty.tier)}
                 </p>
                 <div className="flex items-center gap-1 mt-1">
                   <span style={{ color: "#F5C518", fontSize: "13px" }}>⊕</span>
-                  <span className="text-xs font-bold" style={{ color: "#B8860B" }}>
+                  <span
+                    className="text-xs font-bold"
+                    style={{ color: "#B8860B" }}
+                  >
                     {user.loyalty.balance.toLocaleString("pl-PL")} Kul Mocy
                   </span>
                 </div>
@@ -231,11 +262,17 @@ export default function Navbar() {
           ) : (
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
-                <UserCircle size={28} strokeWidth={1.5} className="text-gray-300" />
+                <UserCircle
+                  size={28}
+                  strokeWidth={1.5}
+                  className="text-gray-300"
+                />
               </div>
               <div>
                 <p className="font-semibold text-gray-900">Gość</p>
-                <p className="text-xs text-gray-400">Zaloguj się, by zbierać Kule Mocy</p>
+                <p className="text-xs text-gray-400">
+                  Zaloguj się, by zbierać Kule Mocy
+                </p>
               </div>
             </div>
           )}
