@@ -8,6 +8,12 @@
   --color-gold: #f5c518; /* złoty badge Kul Mocy */
   --color-bg: #f8f5f7; /* tło strony z iOS kodu */
   --color-navy: #1e1b2e; /* ciemna karta "Nowość" */
+  --color-navy-muted: #2d2940; /* nieco jaśniejszy granat (fallback obrazka premium) */
+  --color-gold-dark: #7a5c00; /* tekst na złotym tle (badge tier) */
+  --color-gold-warm: #b8860b; /* ciepły ciemny złoty (koszt nagrody, KM widget) */
+  --color-gold-pale: #fff3d0; /* bardzo jasne złote tło (KM widget pill) */
+  --color-pink-pale: #fff0f6; /* bardzo jasny róż (fallback obrazka standardowej karty) */
+  --color-bg-subtle: #f0eef2; /* subtelne tło (pasek postępu) */
 
   --color-background: #f8f5f7;
   --color-foreground: #1a1a1a;
