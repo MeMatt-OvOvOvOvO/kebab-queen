@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "@/lib/apiClient";
 import type { User } from "@/types/User.type";
 
-export function useLogin() {
+export const useLogin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -20,4 +20,4 @@ export function useLogin() {
       });
     },
   });
-}
+};
