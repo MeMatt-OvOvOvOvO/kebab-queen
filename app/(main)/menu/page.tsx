@@ -12,18 +12,21 @@ import type { Product } from "@/types/Product.type";
 type Filter = { label: string; tag: string | null };
 
 const FILTERS: Filter[] = [
-  { label: "Wszystkie",      tag: null },
+  { label: "Wszystkie", tag: null },
   { label: "Wegetariańskie", tag: "WEGE" },
-  { label: "Ostre",          tag: "OSTRE" },
-  { label: "Bez glutenu",    tag: "BEZ_GLUTENU" },
+  { label: "Ostre", tag: "OSTRE" },
+  { label: "Bez glutenu", tag: "BEZ_GLUTENU" },
   { label: "Frytki z serem", tag: "FRYTKI_Z_SEREM" },
 ];
 
-const TAG_BADGE: Record<string, { label: string; variant: "wege" | "hot" | "gluten" | "pink" }> = {
-  WEGE:          { label: "Wege",        variant: "wege" },
-  OSTRE:         { label: "Ostre",       variant: "hot" },
-  BEZ_GLUTENU:   { label: "Bez glutenu", variant: "gluten" },
-  FRYTKI_Z_SEREM:{ label: "Frytki z serem", variant: "pink" },
+const TAG_BADGE: Record<
+  string,
+  { label: string; variant: "wege" | "hot" | "gluten" | "pink" }
+> = {
+  WEGE: { label: "Wege", variant: "wege" },
+  OSTRE: { label: "Ostre", variant: "hot" },
+  BEZ_GLUTENU: { label: "Bez glutenu", variant: "gluten" },
+  FRYTKI_Z_SEREM: { label: "Frytki z serem", variant: "pink" },
 };
 
 const STEPS_PER_KCAL = 1.3; // ~1.3 kroków/kcal przy średnim kroku 0.8m
@@ -33,7 +36,10 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <>
-      <Card className="overflow-hidden flex flex-col cursor-pointer group" onClick={() => setOpen(true)}>
+      <Card
+        className="overflow-hidden flex flex-col cursor-pointer group"
+        onClick={() => setOpen(true)}
+      >
         <div className="relative h-44 bg-gray-50 shrink-0 overflow-hidden">
           {product.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -43,7 +49,9 @@ function ProductCard({ product }: { product: Product }) {
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-5xl">🥙</div>
+            <div className="w-full h-full flex items-center justify-center text-5xl">
+              🥙
+            </div>
           )}
           {product.tags.length > 0 && (
             <div className="absolute top-2 left-2 flex flex-wrap gap-1">
@@ -52,7 +60,7 @@ function ProductCard({ product }: { product: Product }) {
                   <Badge key={tag} variant={TAG_BADGE[tag].variant}>
                     {TAG_BADGE[tag].label}
                   </Badge>
-                ) : null
+                ) : null,
               )}
             </div>
           )}
@@ -60,7 +68,9 @@ function ProductCard({ product }: { product: Product }) {
 
         <div className="p-4 flex flex-col gap-2 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-bold text-base leading-tight">{product.name}</h3>
+            <h3 className="font-bold text-base leading-tight">
+              {product.name}
+            </h3>
             <span className="text-sm font-bold shrink-0 text-gray-800">
               {product.price.toFixed(2)} PLN
             </span>
@@ -69,8 +79,12 @@ function ProductCard({ product }: { product: Product }) {
             {product.description}
           </p>
           <div className="flex items-center justify-between mt-auto pt-2">
-            <span className="text-xs text-gray-400">{product.calories} kcal</span>
-            <span className="text-xs font-medium" style={{ color: "#F0147A" }}>Zobacz więcej →</span>
+            <span className="text-xs text-gray-400">
+              {product.calories} kcal
+            </span>
+            <span className="text-xs font-medium" style={{ color: "#F0147A" }}>
+              Zobacz więcej →
+            </span>
           </div>
         </div>
       </Card>
@@ -79,7 +93,11 @@ function ProductCard({ product }: { product: Product }) {
         {product.imageUrl && (
           <div className="h-56 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="w-full h-full object-cover"
+            />
           </div>
         )}
         <div className="p-6 flex flex-col gap-4">
@@ -92,11 +110,14 @@ function ProductCard({ product }: { product: Product }) {
                     <Badge key={tag} variant={TAG_BADGE[tag].variant}>
                       {TAG_BADGE[tag].label}
                     </Badge>
-                  ) : null
+                  ) : null,
                 )}
               </div>
             </div>
-            <span className="text-2xl font-bold shrink-0" style={{ color: "#F0147A" }}>
+            <span
+              className="text-2xl font-bold shrink-0"
+              style={{ color: "#F0147A" }}
+            >
               {product.price.toFixed(2)} PLN
             </span>
           </div>
@@ -104,13 +125,23 @@ function ProductCard({ product }: { product: Product }) {
           <p className="text-gray-600 leading-relaxed">{product.description}</p>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl p-3 text-center" style={{ background: "#F8F5F7" }}>
-              <p className="text-2xl font-bold text-gray-800">{product.calories}</p>
+            <div
+              className="rounded-2xl p-3 text-center"
+              style={{ background: "#F8F5F7" }}
+            >
+              <p className="text-2xl font-bold text-gray-800">
+                {product.calories}
+              </p>
               <p className="text-xs text-gray-500 mt-0.5">kcal</p>
             </div>
-            <div className="rounded-2xl p-3 text-center" style={{ background: "#F8F5F7" }}>
+            <div
+              className="rounded-2xl p-3 text-center"
+              style={{ background: "#F8F5F7" }}
+            >
               <p className="text-2xl font-bold text-gray-800">
-                {Math.round(product.calories * STEPS_PER_KCAL).toLocaleString("pl-PL")}
+                {Math.round(product.calories * STEPS_PER_KCAL).toLocaleString(
+                  "pl-PL",
+                )}
               </p>
               <p className="text-xs text-gray-500 mt-0.5">kroków do spalenia</p>
             </div>
@@ -132,9 +163,8 @@ export default function MenuPage() {
 
   return (
     <div className="flex flex-col gap-6">
-
       {/* Nagłówek */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start flex-row flex-wrap  justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">
             Królewskie <span style={{ color: "#F0147A" }}>Menu</span>
@@ -180,7 +210,11 @@ export default function MenuPage() {
               style={
                 active
                   ? { background: "#F0147A", color: "#fff" }
-                  : { background: "#fff", color: "#374151", border: "1px solid #E5E7EB" }
+                  : {
+                      background: "#fff",
+                      color: "#374151",
+                      border: "1px solid #E5E7EB",
+                    }
               }
             >
               {label}
@@ -209,7 +243,7 @@ export default function MenuPage() {
           <p className="font-medium">Brak produktów w tej kategorii.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {filtered?.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

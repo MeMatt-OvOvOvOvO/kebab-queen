@@ -1,80 +1,91 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, Navigation, Search } from "lucide-react";
+import {
+  MapPin,
+  Navigation,
+  Search,
+  UserCircle,
+  MessageCircle,
+} from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useProducts } from "@/hooks/queries/useProducts";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 
+function tierLabel(tier: number): string {
+  if (tier >= 4) return "Diamentowa Królowa";
+  if (tier === 3) return "Złota Elita";
+  if (tier === 2) return "Srebrna Gwardia";
+  return "Brązowa Adeptka";
+}
+
 export default function Home() {
   const { user } = useGlobalState();
   const { data: products, isLoading } = useProducts();
 
-  const featured = products?.filter((p) => p.isAvailable).slice(0, 2) ?? [];
+  const featured = products?.filter((p) => p.isAvailable).slice(0, 4) ?? [];
 
   return (
-    <div className="flex gap-6 items-start">
-
+    <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
       {/* ── Kolumna lewa (główna) ── */}
-      <div className="flex-1 min-w-0 flex flex-col gap-6">
-
-        {/* Hero banner */}
-        <div
-          className="rounded-3xl p-8 flex items-center justify-between"
-          style={{ background: "linear-gradient(135deg, #F0147A 0%, #FF6DAE 100%)" }}
-        >
-          <div className="flex items-center gap-5">
-            <div
-              className="w-16 h-16 rounded-full flex items-center justify-center shrink-0"
-              style={{ background: "rgba(255,255,255,0.25)" }}
-            >
-              <span className="text-white text-2xl">★</span>
-            </div>
-            <div className="text-white">
-              <h1 className="text-2xl font-bold leading-tight">
-                {user?.name ? `Witaj, ${user.name}!` : "Witaj ponownie,"}<br />
-                {user?.name ? "" : "Królowo!"}
-              </h1>
-              {user?.loyalty && (
-                <p className="text-white/80 text-sm mt-1">
-                  Saldo: <strong>{user.loyalty.balance.toLocaleString("pl-PL")} Kul Mocy</strong>
-                </p>
-              )}
-            </div>
-          </div>
-          <Button
-            href="/nagrody"
-            variant="secondary"
-            size="md"
-            style={{ background: "rgba(255,255,255,0.9)", color: "#F0147A" }}
+      <div className="flex-1 min-w-0 flex flex-col gap-5">
+        {/* Quick actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            className="rounded-2xl p-5 flex flex-col items-center gap-2 transition-transform active:scale-95"
+            style={{
+              background: "linear-gradient(135deg, #F0147A 0%, #FF6DAE 100%)",
+            }}
           >
-            Zobacz wszystkie nagrody
-          </Button>
+            <MapPin size={28} className="text-white" />
+            <span className="text-white font-bold text-sm">Znajdź lokal</span>
+          </button>
+          <Link
+            href="/czat"
+            className="rounded-2xl p-5 flex flex-col items-center gap-2 bg-white border border-gray-100 shadow-sm transition-transform active:scale-95"
+          >
+            <MessageCircle size={28} style={{ color: "#F0147A" }} />
+            <span className="font-bold text-sm text-gray-900">Czat AI</span>
+          </Link>
         </div>
 
-        {/* Polecane produkty */}
+        {/* Featured offers */}
         <div>
-          <h2 className="text-xl font-bold mb-4">Polecane dla Królowej</h2>
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-xl font-bold">Wyjątkowe Oferty</h2>
+            <Link
+              href="/menu"
+              className="text-sm font-semibold"
+              style={{ color: "#F0147A" }}
+            >
+              Zobacz Wszystko
+            </Link>
+          </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[0, 1].map((i) => (
-                <Card key={i} className="overflow-hidden animate-pulse">
-                  <div className="h-44 bg-gray-100" />
-                  <div className="p-4 flex flex-col gap-3">
-                    <div className="h-4 bg-gray-100 rounded w-3/4" />
-                    <div className="h-3 bg-gray-100 rounded w-full" />
-                    <div className="h-8 bg-gray-100 rounded-full" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[0, 1, 2, 4].map((i) => (
+                <Card
+                  key={i}
+                  className="overflow-hidden rounded-2xl animate-pulse"
+                >
+                  <div className="h-48 bg-gray-100" />
+                  <div className="p-3 flex items-center justify-between">
+                    <div className="flex flex-col gap-2">
+                      <div className="h-4 bg-gray-100 rounded w-32" />
+                      <div className="h-3 bg-gray-100 rounded w-20" />
+                    </div>
+                    <div className="h-8 w-20 bg-gray-100 rounded-full" />
                   </div>
                 </Card>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {featured.map((product) => (
-                <Card key={product.id} className="overflow-hidden">
-                  <div className="h-44 overflow-hidden bg-gray-50">
+                <Card key={product.id} className="overflow-hidden rounded-2xl">
+                  <div className="h-48 bg-gray-50 overflow-hidden">
                     {product.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -83,24 +94,27 @@ export default function Home() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-300 text-4xl">
+                      <div className="w-full h-full flex items-center justify-center text-4xl text-gray-200">
                         🥙
                       </div>
                     )}
                   </div>
-                  <div className="p-4 flex flex-col gap-3">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-bold text-base">{product.name}</h3>
-                      <span className="text-sm font-bold shrink-0 text-gray-700">
+                  <div className="p-3 flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <h3 className="font-bold text-sm truncate">
+                        {product.name}
+                      </h3>
+                      <p className="text-xs text-gray-400 mt-0.5">
                         {product.price.toFixed(2)} PLN
-                      </span>
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
-                      {product.description}
-                    </p>
-                    <Button href="/menu" variant="secondary" size="sm" className="w-full">
-                      Zobacz w menu
-                    </Button>
+                    <Link
+                      href="/menu"
+                      className="flex items-center gap-1 px-3 py-1.5 rounded-full shrink-0 text-xs font-bold transition-colors"
+                      style={{ background: "#FADADF", color: "#F0147A" }}
+                    >
+                      Szczegóły
+                    </Link>
                   </div>
                 </Card>
               ))}
@@ -110,7 +124,24 @@ export default function Home() {
       </div>
 
       {/* ── Kolumna prawa (sidebar) ── */}
-      <div className="w-80 shrink-0 flex flex-col gap-4">
+      <div className="w-full lg:w-80 lg:shrink-0 flex flex-col gap-4">
+        {/* Nowość! */}
+        <div
+          className="rounded-2xl p-5 flex flex-col gap-2"
+          style={{ background: "#1E1B2E" }}
+        >
+          <p className="text-white font-bold text-lg">Nowość!</p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Spróbuj naszych Wrapów Dragon Fire z pikantnym miodem ghost pepper.
+          </p>
+          <Link
+            href="/menu"
+            className="text-sm font-semibold mt-1"
+            style={{ color: "#F0147A" }}
+          >
+            Dowiedz się więcej →
+          </Link>
+        </div>
 
         {/* Znajdź Kebab Queen */}
         <Card padding="md" className="flex flex-col gap-4">
@@ -118,7 +149,9 @@ export default function Home() {
             <MapPin size={18} style={{ color: "#F0147A" }} />
             <h3 className="font-bold">Znajdź Kebab Queen</h3>
           </div>
-          <p className="text-sm text-gray-400">Wyszukaj najbliższą lokalizację</p>
+          <p className="text-sm text-gray-400">
+            Wyszukaj najbliższą lokalizację
+          </p>
 
           <div
             className="flex items-center gap-2 px-4 py-2.5 rounded-full border"
@@ -132,10 +165,19 @@ export default function Home() {
             />
           </div>
 
-          <div className="h-36 rounded-xl flex items-center justify-center" style={{ background: "#E8E8F0" }}>
+          <div
+            className="h-36 rounded-xl flex items-center justify-center"
+            style={{ background: "#E8E8F0" }}
+          >
             <div className="text-center">
-              <MapPin size={28} style={{ color: "#F0147A" }} className="mx-auto mb-1" />
-              <p className="text-xs text-gray-500 font-medium">Centrum, 1.2km</p>
+              <MapPin
+                size={28}
+                style={{ color: "#F0147A" }}
+                className="mx-auto mb-1"
+              />
+              <p className="text-xs text-gray-500 font-medium">
+                Centrum, 1.2km
+              </p>
             </div>
           </div>
 
@@ -144,17 +186,6 @@ export default function Home() {
             Prowadź do mnie
           </Button>
         </Card>
-
-        {/* Nowość! */}
-        <div className="rounded-2xl p-5 flex flex-col gap-2" style={{ background: "#1E1B2E" }}>
-          <p className="text-white font-bold text-lg">Nowość!</p>
-          <p className="text-gray-300 text-sm leading-relaxed">
-            Spróbuj naszych Wrapów Dragon Fire z pikantnym miodem ghost pepper.
-          </p>
-          <Link href="/menu" className="text-sm font-semibold mt-1" style={{ color: "#F0147A" }}>
-            Dowiedz się więcej →
-          </Link>
-        </div>
       </div>
     </div>
   );
