@@ -5,7 +5,7 @@
       "name": "kebab-queen",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3000,
+      "port": 3333,
       "autoPort": true
     }
   ]
