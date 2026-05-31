@@ -1,6 +1,11 @@
+import path from "path";
 import { PrismaClient } from "@prisma/client";
+import { PrismaLibSql } from "@prisma/adapter-libsql";
 
-const prisma = new PrismaClient();
+const adapter = new PrismaLibSql({
+  url: `file:${path.resolve("prisma/dev.db")}`,
+});
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   // Products
