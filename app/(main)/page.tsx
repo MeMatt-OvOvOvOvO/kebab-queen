@@ -4,6 +4,8 @@ import Link from "next/link";
 import { MapPin, Navigation, Search } from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useProducts } from "@/hooks/queries/useProducts";
+import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 
 export default function Home() {
   const { user } = useGlobalState();
@@ -41,13 +43,14 @@ export default function Home() {
               )}
             </div>
           </div>
-          <Link
+          <Button
             href="/nagrody"
-            className="shrink-0 px-6 py-3 rounded-full font-semibold text-sm transition-colors"
+            variant="secondary"
+            size="md"
             style={{ background: "rgba(255,255,255,0.9)", color: "#F0147A" }}
           >
             Zobacz wszystkie nagrody
-          </Link>
+          </Button>
         </div>
 
         {/* Polecane produkty */}
@@ -57,20 +60,20 @@ export default function Home() {
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[0, 1].map((i) => (
-                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm animate-pulse">
+                <Card key={i} className="overflow-hidden animate-pulse">
                   <div className="h-44 bg-gray-100" />
                   <div className="p-4 flex flex-col gap-3">
                     <div className="h-4 bg-gray-100 rounded w-3/4" />
                     <div className="h-3 bg-gray-100 rounded w-full" />
                     <div className="h-8 bg-gray-100 rounded-full" />
                   </div>
-                </div>
+                </Card>
               ))}
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {featured.map((product) => (
-                <div key={product.id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+                <Card key={product.id} className="overflow-hidden">
                   <div className="h-44 overflow-hidden bg-gray-50">
                     {product.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -95,15 +98,11 @@ export default function Home() {
                     <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
                       {product.description}
                     </p>
-                    <Link
-                      href="/menu"
-                      className="w-full py-2.5 rounded-full text-sm font-semibold text-center transition-colors"
-                      style={{ background: "#FADADF", color: "#F0147A" }}
-                    >
+                    <Button href="/menu" variant="secondary" size="sm" className="w-full">
                       Zobacz w menu
-                    </Link>
+                    </Button>
                   </div>
-                </div>
+                </Card>
               ))}
             </div>
           )}
@@ -114,7 +113,7 @@ export default function Home() {
       <div className="w-80 shrink-0 flex flex-col gap-4">
 
         {/* Znajdź Kebab Queen */}
-        <div className="bg-white rounded-2xl p-5 shadow-sm flex flex-col gap-4">
+        <Card padding="md" className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <MapPin size={18} style={{ color: "#F0147A" }} />
             <h3 className="font-bold">Znajdź Kebab Queen</h3>
@@ -133,39 +132,26 @@ export default function Home() {
             />
           </div>
 
-          <div
-            className="h-36 rounded-xl flex items-center justify-center"
-            style={{ background: "#E8E8F0" }}
-          >
+          <div className="h-36 rounded-xl flex items-center justify-center" style={{ background: "#E8E8F0" }}>
             <div className="text-center">
               <MapPin size={28} style={{ color: "#F0147A" }} className="mx-auto mb-1" />
               <p className="text-xs text-gray-500 font-medium">Centrum, 1.2km</p>
             </div>
           </div>
 
-          <button
-            className="w-full py-3 rounded-full text-white font-semibold flex items-center justify-center gap-2 transition-opacity hover:opacity-90"
-            style={{ background: "#F0147A" }}
-          >
+          <Button variant="primary" size="md" className="w-full gap-2">
             <Navigation size={16} />
             Prowadź do mnie
-          </button>
-        </div>
+          </Button>
+        </Card>
 
         {/* Nowość! */}
-        <div
-          className="rounded-2xl p-5 flex flex-col gap-2"
-          style={{ background: "#1E1B2E" }}
-        >
+        <div className="rounded-2xl p-5 flex flex-col gap-2" style={{ background: "#1E1B2E" }}>
           <p className="text-white font-bold text-lg">Nowość!</p>
           <p className="text-gray-300 text-sm leading-relaxed">
             Spróbuj naszych Wrapów Dragon Fire z pikantnym miodem ghost pepper.
           </p>
-          <Link
-            href="/menu"
-            className="text-sm font-semibold mt-1 text-left"
-            style={{ color: "#F0147A" }}
-          >
+          <Link href="/menu" className="text-sm font-semibold mt-1" style={{ color: "#F0147A" }}>
             Dowiedz się więcej →
           </Link>
         </div>
