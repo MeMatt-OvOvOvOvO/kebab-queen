@@ -55,3 +55,15 @@ model Reward {
   isAvailable Boolean @default(true)
 }
 
+model HappyHour {
+  id         String  @id @default(cuid())
+  dayOfWeek  Int     // 0=niedziela … 6=sobota, -1=każdy dzień
+  startHour  Int
+  startMin   Int     @default(0)
+  endHour    Int
+  endMin     Int     @default(0)
+  multiplier Float   // np. 2.0 = podwójne punkty
+  label      String
+  isActive   Boolean @default(true)
+}
+
