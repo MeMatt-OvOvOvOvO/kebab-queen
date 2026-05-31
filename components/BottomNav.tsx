@@ -51,7 +51,7 @@ export default function BottomNav() {
                 }`}
               >
                 <Icon size={22} strokeWidth={active ? 2.5 : 1.8} />
-                <span className="font-medium">{label}</span>
+                <span className="font-medium uppercase">{label}</span>
               </Link>
             );
           })}
@@ -70,7 +70,7 @@ export default function BottomNav() {
                 }`}
               >
                 <Icon size={22} strokeWidth={active ? 2.5 : 1.8} />
-                <span className="font-medium">{label}</span>
+                <span className="font-medium uppercase">{label}</span>
               </Link>
             );
           })}
