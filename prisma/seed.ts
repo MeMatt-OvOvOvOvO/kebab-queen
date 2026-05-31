@@ -17,6 +17,7 @@ async function main() {
       price: 22.0,
       calories: 580,
       tags: JSON.stringify([]),
+      imageUrl: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&q=80",
     },
     {
       name: "Kebab wege",
@@ -25,6 +26,7 @@ async function main() {
       price: 20.0,
       calories: 420,
       tags: JSON.stringify(["WEGE"]),
+      imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80",
     },
     {
       name: "Kebab ostry",
@@ -33,6 +35,7 @@ async function main() {
       price: 23.0,
       calories: 610,
       tags: JSON.stringify(["OSTRE"]),
+      imageUrl: "https://images.unsplash.com/photo-1625938144755-652e08e359b7?w=600&q=80",
     },
     {
       name: "Kebab bezglutenowy",
@@ -41,6 +44,7 @@ async function main() {
       price: 24.0,
       calories: 490,
       tags: JSON.stringify(["BEZ_GLUTENU"]),
+      imageUrl: "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=600&q=80",
     },
     {
       name: "Kebab amerykański",
@@ -49,6 +53,7 @@ async function main() {
       price: 30.0,
       calories: 950,
       tags: JSON.stringify(["FRYTKI_Z_SEREM"]),
+      imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
     },
     {
       name: "Duży Kebab Queen",
@@ -57,6 +62,7 @@ async function main() {
       price: 34.0,
       calories: 1100,
       tags: JSON.stringify([]),
+      imageUrl: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&q=80",
     },
     {
       name: "Kebab wegostry",
@@ -64,6 +70,7 @@ async function main() {
       price: 22.0,
       calories: 460,
       tags: JSON.stringify(["WEGE", "OSTRE"]),
+      imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80",
     },
     {
       name: "Pita klasyczna",
@@ -71,6 +78,7 @@ async function main() {
       price: 19.0,
       calories: 380,
       tags: JSON.stringify([]),
+      imageUrl: "https://images.unsplash.com/photo-1606755456206-b25206cde27e?w=600&q=80",
     },
     {
       name: "Pita wege",
@@ -78,6 +86,7 @@ async function main() {
       price: 17.0,
       calories: 310,
       tags: JSON.stringify(["WEGE"]),
+      imageUrl: "https://images.unsplash.com/photo-1572449043416-55f4685c9bb7?w=600&q=80",
     },
     {
       name: "Frytki z serem",
@@ -86,6 +95,7 @@ async function main() {
       price: 14.0,
       calories: 720,
       tags: JSON.stringify(["WEGE", "FRYTKI_Z_SEREM"]),
+      imageUrl: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80",
     },
   ];
 
