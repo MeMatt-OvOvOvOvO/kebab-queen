@@ -1,13 +1,18 @@
 import { prisma } from "./db";
 
-export async function getActiveMultiplier(): Promise<{ multiplier: number; label: string | null }> {
+export async function getActiveMultiplier(): Promise<{
+  multiplier: number;
+  label: string | null;
+}> {
   const now = new Date();
   const day = now.getDay(); // 0=Sun … 6=Sat
   const hour = now.getHours();
   const min = now.getMinutes();
   const totalMin = hour * 60 + min;
 
-  const happyHours = await prisma.happyHour.findMany({ where: { isActive: true } });
+  const happyHours = await prisma.happyHour.findMany({
+    where: { isActive: true },
+  });
 
   for (const hh of happyHours) {
     const applies = hh.dayOfWeek === -1 || hh.dayOfWeek === day;
