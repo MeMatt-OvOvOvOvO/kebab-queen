@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PROTECTED_API = ["/api/user", "/api/transactions", "/api/rewards/redeem"];
-const PROTECTED_PAGES = ["/portfel", "/nagrody", "/menu", "/qr", "/chat"];
+const PROTECTED_API = [
+  "/api/user",
+  "/api/transactions",
+  "/api/rewards/redeem",
+  "/api/chat",
+];
+const PROTECTED_PAGES = ["/portfel", "/nagrody", "/menu", "/qr", "/czat"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -23,5 +28,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/:path*", "/portfel/:path*", "/nagrody/:path*", "/menu/:path*", "/qr/:path*", "/chat/:path*"],
+  matcher: ["/api/:path*", "/portfel/:path*", "/nagrody/:path*", "/menu/:path*", "/qr/:path*", "/czat/:path*"],
 };

@@ -17,11 +17,15 @@ Aplikacja lojalnościowa dla sieci Kebab Queen. Next.js 16 (App Router) + Prisma
 
 ```bash
 npm install
-npm run db:reset   # reset migracji + seed bazy
+cp .env.example .env.local   # uzupełnij ANTHROPIC_API_KEY (wymagany dla czatu AI Queen)
+npm run db:reset             # reset migracji + seed bazy
 npm run dev
 ```
 
 Konto demo: telefon **123456789** (350 Kul Mocy, tier 3).
+
+> Ekran **AI Queen** (`/czat`) korzysta z Claude API — bez `ANTHROPIC_API_KEY` w `.env.local`
+> reszta aplikacji działa, a czat zwróci komunikat o braku konfiguracji.
 
 ## Przydatne komendy
 
@@ -103,11 +107,11 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 
 ### AI Queen (Czatbot)
 
-- [ ] Integracja z Claude API / OpenAI API (system prompt z menu i FAQ Kebab Queen)
-- [ ] Ekran czatu — dymki, awatar, animacja "pisze..."
-- [ ] Rozpoznawanie intencji smakowych ("lekkie", "bez cebuli")
-- [ ] Odpowiedź na pytanie "Gdzie najbliższa Queen?" (hardkodowane lokalizacje)
-- [ ] Odpowiedzi o składnikach, alergenach, wartościach odżywczych
+- [x] Integracja z Claude API (system prompt z menu z bazy + FAQ Kebab Queen) — `/api/chat`, model `claude-opus-4-8`, wymaga `ANTHROPIC_API_KEY`
+- [x] Ekran czatu (`/czat`) — dymki, awatar, animacja "pisze...", strumieniowane odpowiedzi
+- [x] Rozpoznawanie intencji smakowych ("lekkie", "bez cebuli")
+- [x] Odpowiedź na pytanie "Gdzie najbliższa Queen?" (hardkodowane lokalizacje + opcjonalna geolokalizacja przeglądarki)
+- [x] Odpowiedzi o składnikach, alergenach, wartościach odżywczych
 
 ### System poleceń
 
