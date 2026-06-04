@@ -6,12 +6,15 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import {
   UserCircle,
-  LogIn,
   LogOut,
   Star,
   X,
   MessageCircle,
   LifeBuoy,
+  ArrowRight,
+  QrCode,
+  Wallet,
+  Gift,
 } from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useLogout } from "@/hooks/mutations/useLogout";
@@ -120,18 +123,23 @@ export default function Navbar() {
                   className="h-8 w-36 rounded-full animate-pulse"
                   style={{ background: "#F5E9A0" }}
                 />
-              ) : (
+              ) : user ? (
                 <div
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-semibold"
                   style={{ borderColor: "#F5C518", color: "#B8860B" }}
                 >
                   <span style={{ color: "#F5C518" }}>⊕</span>
-                  <span>
-                    {user
-                      ? `${user.loyalty.balance.toLocaleString("pl-PL")} Kul Mocy`
-                      : "Zaloguj się"}
-                  </span>
+                  <span>{user.loyalty.balance.toLocaleString("pl-PL")} Kul Mocy</span>
                 </div>
+              ) : (
+                <button
+                  onClick={() => router.push("/login")}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-semibold transition-opacity hover:opacity-80"
+                  style={{ borderColor: "#F0147A", color: "#F0147A" }}
+                >
+                  <ArrowRight size={14} />
+                  <span>Zaloguj się</span>
+                </button>
               )}
             </div>
 
@@ -161,6 +169,30 @@ export default function Navbar() {
                           </p>
                         </div>
                       </div>
+                      <Link
+                        href="/portfel"
+                        onClick={() => setDesktopDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <Wallet size={16} className="text-gray-400" />
+                        Portfel Kul Mocy
+                      </Link>
+                      <Link
+                        href="/zaproszenia"
+                        onClick={() => setDesktopDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <Gift size={16} className="text-gray-400" />
+                        Zaproś koleżankę
+                      </Link>
+                      <Link
+                        href="/karta"
+                        onClick={() => setDesktopDropdownOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-100"
+                      >
+                        <QrCode size={16} className="text-gray-400" />
+                        Moja karta QR
+                      </Link>
                       <button
                         onClick={handleLogout}
                         disabled={logout.isPending}
@@ -171,15 +203,17 @@ export default function Navbar() {
                       </button>
                     </>
                   ) : (
-                    <Link
-                      href="/login"
-                      onClick={() => setDesktopDropdownOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium"
+                    <button
+                      onClick={() => {
+                        setDesktopDropdownOpen(false);
+                        router.push("/login");
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium"
                       style={{ color: "#F0147A" }}
                     >
-                      <LogIn size={16} />
+                      <ArrowRight size={16} />
                       Zaloguj się
-                    </Link>
+                    </button>
                   )}
                 </div>
               )}
@@ -279,7 +313,29 @@ export default function Navbar() {
         </div>
 
         {/* Secondary links */}
-        <div className="flex-1 px-3 py-4 flex flex-col gap-1">
+        <div className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
+          <Link
+            href="/portfel"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <Wallet size={18} style={{ color: "#F0147A" }} />
+            Portfel Kul Mocy
+          </Link>
+          <Link
+            href="/zaproszenia"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <Gift size={18} style={{ color: "#F0147A" }} />
+            Zaproś koleżankę
+          </Link>
+          <Link
+            href="/karta"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          >
+            <QrCode size={18} style={{ color: "#F0147A" }} />
+            Moja karta QR
+          </Link>
+          <div className="h-px bg-gray-100 my-1" />
           <Link
             href="/czat"
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
@@ -308,14 +364,17 @@ export default function Navbar() {
               {logout.isPending ? "Wylogowywanie…" : "Wyloguj się"}
             </button>
           ) : (
-            <Link
-              href="/login"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold"
+            <button
+              onClick={() => {
+                setProfileDrawerOpen(false);
+                router.push("/login");
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold"
               style={{ color: "#F0147A" }}
             >
-              <LogIn size={16} />
+              <ArrowRight size={16} />
               Zaloguj się
-            </Link>
+            </button>
           )}
         </div>
       </div>
