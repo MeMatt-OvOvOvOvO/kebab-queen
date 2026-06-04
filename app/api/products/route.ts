@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
   type ProductWithTags = Omit<(typeof all)[0], "tags"> & { tags: string[] };
 
   const products = all
-    .map((p): ProductWithTags => ({ ...p, tags: JSON.parse(p.tags) as string[] }))
+    .map((p: (typeof all)[number]): ProductWithTags => ({ ...p, tags: JSON.parse(p.tags) as string[] }))
     .filter((p) => tags.length === 0 || tags.every((t: string) => p.tags.includes(t)));
 
   return NextResponse.json(products);
