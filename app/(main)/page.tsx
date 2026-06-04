@@ -1,17 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import {
-  MapPin,
-  Navigation,
-  Search,
-  UserCircle,
-  MessageCircle,
-} from "lucide-react";
+import { MapPin, Navigation, Search, MessageCircle, Zap } from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useProducts } from "@/hooks/queries/useProducts";
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "@/lib/apiClient";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import HappyHoursBanner from "@/components/HappyHoursBanner";
 
 function tierLabel(tier: number): string {
   if (tier >= 4) return "Diamentowa Królowa";
@@ -23,13 +20,43 @@ function tierLabel(tier: number): string {
 export default function Home() {
   const { user } = useGlobalState();
   const { data: products, isLoading } = useProducts();
+  const { data: usualData } = useQuery<{ usual: string | null }>({
+    queryKey: [{ resource: "user", scope: "usual" }],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/user/usual");
+      return data;
+    },
+    enabled: !!user,
+  });
 
   const featured = products?.filter((p) => p.isAvailable).slice(0, 4) ?? [];
+  const usual = usualData?.usual ?? null;
 
   return (
     <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
       {/* ── Kolumna lewa (główna) ── */}
       <div className="flex-1 min-w-0 flex flex-col gap-5">
+
+        {/* Happy Hours baner */}
+        <HappyHoursBanner />
+
+        {/* "To co zwykle?" — tylko gdy user ma historię */}
+        {user && usual && (
+          <button
+            className="w-full flex items-center justify-between px-5 py-4 rounded-2xl text-white font-semibold transition-opacity hover:opacity-90 active:scale-95"
+            style={{ background: "linear-gradient(135deg, #D4A843 0%, #F0147A 100%)" }}
+          >
+            <div className="flex items-center gap-3">
+              <Zap size={20} fill="white" />
+              <div className="text-left">
+                <p className="font-bold">To co zwykle?</p>
+                <p className="text-white/80 text-xs font-normal">{usual}</p>
+              </div>
+            </div>
+            <span className="text-white/70 text-xl">›</span>
+          </button>
+        )}
+
         {/* Quick actions */}
         <div className="grid grid-cols-2 gap-3">
           <button
