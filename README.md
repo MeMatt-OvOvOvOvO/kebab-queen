@@ -137,11 +137,11 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [x] Navbar + Footer (desktop)
 - [x] Strona główna — hero banner, karty ofert, sidebar z lokalizacją
 - [x] Wspólne komponenty: `Button`, `Card`, `Badge`
-- [ ] Warianty "Stopnia Różowości" (3 motywy — CSS variables)
+- [x] Warianty "Stopnia Różowości" (3 motywy: Różowy / Pudrowy / Fuksja) — ThemeSwitcher w /portfel
 - [x] Ikony Kul Mocy (1–7 gwiazdek zależnie od poziomu) — portfel, karta QR
-- [ ] Responsywność — mobile-first, iPhone SE → duże Androidy
-- [ ] Animacje przejść między stronami (Framer Motion)
-- [ ] Loading states i error states na wszystkich ekranach
+- [x] Responsywność — BottomNav na mobile, top navbar na desktop, mobile-first layout
+- [x] Animacje przejść między stronami (Framer Motion — PageTransition)
+- [x] Loading states (skeleton cards) i error states (ErrorState) na kluczowych ekranach
 
 ---
 
