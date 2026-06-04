@@ -11,6 +11,6 @@ export type HappyHour = {
 };
 
 export type HappyHoursResponse = {
-  active: { multiplier: number; label: string } | null;
+  active: { multiplier: number; label: string; endHour: number | null; endMin: number | null } | null;
   schedule: HappyHour[];
 };
