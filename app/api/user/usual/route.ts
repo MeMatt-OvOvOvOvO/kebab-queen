@@ -16,7 +16,7 @@ export async function GET() {
   if (!transactions.length) return NextResponse.json({ usual: null });
 
   // Zlicz opisy i znajdź najczęstszy
-  const counts = transactions.reduce<Record<string, number>>((acc: Record<string, number>, tx) => {
+  const counts = transactions.reduce<Record<string, number>>((acc: Record<string, number>, tx: (typeof transactions)[number]) => {
     const key = tx.description.split(" (")[0].trim(); // usuń suffix "(Happy Hours)"
     acc[key] = (acc[key] ?? 0) + 1;
     return acc;
