@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, Navigation, Search, MessageCircle, Zap } from "lucide-react";
+import { MessageCircle, Zap } from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useProducts } from "@/hooks/queries/useProducts";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "@/lib/apiClient";
-import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import HappyHoursBanner from "@/components/HappyHoursBanner";
+import { FindLocationButton, FindLocationSidebar } from "@/components/FindLocation";
 
 function tierLabel(tier: number): string {
   if (tier >= 4) return "Diamentowa Królowa";
@@ -59,15 +59,7 @@ export default function Home() {
 
         {/* Quick actions */}
         <div className="grid grid-cols-2 gap-3">
-          <button
-            className="rounded-2xl p-5 flex flex-col items-center gap-2 transition-transform active:scale-95"
-            style={{
-              background: "linear-gradient(135deg, #F0147A 0%, #FF6DAE 100%)",
-            }}
-          >
-            <MapPin size={28} className="text-white" />
-            <span className="text-white font-bold text-sm">Znajdź lokal</span>
-          </button>
+          <FindLocationButton />
           <Link
             href="/czat"
             className="rounded-2xl p-5 flex flex-col items-center gap-2 bg-white border border-gray-100 shadow-sm transition-transform active:scale-95"
@@ -171,47 +163,8 @@ export default function Home() {
         </div>
 
         {/* Znajdź Kebab Queen */}
-        <Card padding="md" className="flex flex-col gap-4">
-          <div className="flex items-center gap-2">
-            <MapPin size={18} style={{ color: "#F0147A" }} />
-            <h3 className="font-bold">Znajdź Kebab Queen</h3>
-          </div>
-          <p className="text-sm text-gray-400">
-            Wyszukaj najbliższą lokalizację
-          </p>
-
-          <div
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full border"
-            style={{ borderColor: "#F0147A" }}
-          >
-            <Search size={16} className="text-gray-400" />
-            <input
-              type="text"
-              placeholder="Wpisz miasto lub kod..."
-              className="flex-1 text-sm outline-none bg-transparent placeholder-gray-400"
-            />
-          </div>
-
-          <div
-            className="h-36 rounded-xl flex items-center justify-center"
-            style={{ background: "#E8E8F0" }}
-          >
-            <div className="text-center">
-              <MapPin
-                size={28}
-                style={{ color: "#F0147A" }}
-                className="mx-auto mb-1"
-              />
-              <p className="text-xs text-gray-500 font-medium">
-                Centrum, 1.2km
-              </p>
-            </div>
-          </div>
-
-          <Button variant="primary" size="md" className="w-full gap-2">
-            <Navigation size={16} />
-            Prowadź do mnie
-          </Button>
+        <Card padding="md">
+          <FindLocationSidebar />
         </Card>
       </div>
     </div>
