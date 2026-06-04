@@ -15,6 +15,7 @@ import {
   QrCode,
   Wallet,
   Gift,
+  Crown,
 } from "lucide-react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useLogout } from "@/hooks/mutations/useLogout";
@@ -80,10 +81,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <span
-              className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm"
+              className="w-8 h-8 rounded-full flex items-center justify-center"
               style={{ background: "#F0147A" }}
             >
-              ✕
+              <Crown size={16} className="text-white" strokeWidth={2} />
             </span>
             <span className="font-bold text-lg">
               <span className="text-gray-900">Kebab</span>{" "}

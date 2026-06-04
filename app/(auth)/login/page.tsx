@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useLogin } from "@/hooks/mutations/useLogin";
+import { Crown } from "lucide-react";
 
 type FormValues = { phone: string };
 
@@ -39,8 +40,8 @@ export default function LoginPage() {
         style={{ background: "linear-gradient(160deg, #F0147A 0%, #C4006A 100%)" }}
       >
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/20 text-white font-bold text-lg">
-            ✕
+          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/20">
+            <Crown size={20} className="text-white" strokeWidth={2} />
           </div>
           <span className="font-bold text-xl text-white">
             Kebab <span className="text-white/80">Queen</span>
@@ -82,10 +83,10 @@ export default function LoginPage() {
 
           <Link href="/" className="flex items-center gap-3 lg:hidden">
             <div
-              className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold"
+              className="w-9 h-9 rounded-full flex items-center justify-center"
               style={{ background: "#F0147A" }}
             >
-              ✕
+              <Crown size={16} className="text-white" strokeWidth={2} />
             </div>
             <span className="font-bold text-xl">
               <span className="text-gray-900">Kebab</span>{" "}

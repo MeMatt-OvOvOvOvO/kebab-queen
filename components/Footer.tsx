@@ -1,3 +1,5 @@
+import { Crown } from "lucide-react";
+
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-gray-100 mt-16 pb-20 md:pb-0">
@@ -7,10 +9,10 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
               <span
-                className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                className="w-7 h-7 rounded-full flex items-center justify-center"
                 style={{ background: "#F0147A" }}
               >
-                ✕
+                <Crown size={14} className="text-white" strokeWidth={2} />
               </span>
               <span className="font-bold">
                 <span className="text-gray-900">Kebab</span>{" "}
@@ -83,10 +85,10 @@ export default function Footer() {
         <div className="border-t border-gray-100 pt-6 flex flex-wrap gap-4 items-center justify-between">
           <div className="flex items-center gap-2">
             <span
-              className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs"
-              style={{ background: "#ccc" }}
+              className="w-6 h-6 rounded-full flex items-center justify-center"
+              style={{ background: "#F0147A" }}
             >
-              ✕
+              <Crown size={12} className="text-white" strokeWidth={2} />
             </span>
             <span className="text-sm text-gray-400">Kebab Queen © 2026</span>
           </div>

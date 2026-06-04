@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Search, Plus, CheckCircle, AlertCircle, Star } from "lucide-react";
+import { Search, Plus, CheckCircle, AlertCircle, Star, Crown } from "lucide-react";
 import apiClient from "@/lib/apiClient";
 
 type FoundUser = { id: string; phone: string; name: string | null; balance: number; tier: number };
@@ -71,7 +71,7 @@ export default function AdminPage() {
             className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
             style={{ background: "#F0147A" }}
           >
-            <span className="text-white text-xl font-bold">✕</span>
+            <Crown size={22} className="text-white" strokeWidth={2} />
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Panel Kasjera</h1>
           <p className="text-gray-500 text-sm mt-1">Znajdź klienta i nabij Kule Mocy</p>
