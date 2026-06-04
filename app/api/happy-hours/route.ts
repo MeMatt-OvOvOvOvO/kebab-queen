@@ -16,7 +16,7 @@ export async function GET() {
     const now = new Date();
     const day = now.getDay();
     const totalMin = now.getHours() * 60 + now.getMinutes();
-    activeEntry = all.find((hh) => {
+    activeEntry = all.find((hh: (typeof all)[0]) => {
       const applies = hh.dayOfWeek === -1 || hh.dayOfWeek === day;
       if (!applies) return false;
       const start = hh.startHour * 60 + hh.startMin;
