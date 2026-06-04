@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useGlobalState } from "@/context/GlobalStateContext";
 import { useTransactions } from "@/hooks/queries/useTransactions";
-import { Star, TrendingUp, TrendingDown, Gift, ArrowRight } from "lucide-react";
+import { Star, TrendingUp, TrendingDown, Gift } from "lucide-react";
 import Link from "next/link";
 import { TRANSACTION_TYPE } from "@/types/TransactionType.enum";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
+import ErrorState from "@/components/ui/ErrorState";
 import type { TransactionTypeEnum } from "@/types/TransactionType.enum";
 
 function tierLabel(tier: number) {
@@ -40,7 +42,7 @@ function formatDate(iso: string) {
 export default function PortfelPage() {
   const { user, isLoading: userLoading } = useGlobalState();
   const [page, setPage] = useState(1);
-  const { data, isLoading: txLoading } = useTransactions(page, 10);
+  const { data, isLoading: txLoading, isError: txError, refetch } = useTransactions(page, 10);
 
   if (userLoading) {
     return (
@@ -159,6 +161,8 @@ export default function PortfelPage() {
               </div>
             ))}
           </div>
+        ) : txError ? (
+          <ErrorState message="Nie udało się załadować historii" onRetry={refetch} />
         ) : !data?.items.length ? (
           <div className="p-8 text-center text-gray-400">
             <p className="text-3xl mb-2">🥙</p>
@@ -214,6 +218,11 @@ export default function PortfelPage() {
             </button>
           </div>
         )}
+      </div>
+
+      {/* Ustawienia wyglądu */}
+      <div className="bg-white rounded-2xl p-5 shadow-sm">
+        <ThemeSwitcher />
       </div>
 
     </div>

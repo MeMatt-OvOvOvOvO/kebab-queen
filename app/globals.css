@@ -1,28 +1,60 @@
 @import "tailwindcss";
 
+/* ── Stopień Różowości — 3 motywy ─────────────────────────────── */
+
+/* Domyślny (standardowy róż) */
+:root {
+  --kq-primary:       #F0147A;
+  --kq-primary-dark:  #C4006A;
+  --kq-primary-light: #FADADF;
+  --kq-primary-pale:  #FFF0F6;
+  --kq-gradient:      linear-gradient(135deg, #F0147A 0%, #C4006A 100%);
+  --kq-gradient-hero: linear-gradient(135deg, #F0147A 0%, #FF6DAE 100%);
+  --kq-bg:            #F8F5F7;
+}
+
+/* Pudrowy — delikatny pastelowy róż */
+[data-theme="pudrowy"] {
+  --kq-primary:       #E8769A;
+  --kq-primary-dark:  #C4486A;
+  --kq-primary-light: #FADADF;
+  --kq-primary-pale:  #FFF5F8;
+  --kq-gradient:      linear-gradient(135deg, #E8769A 0%, #C4486A 100%);
+  --kq-gradient-hero: linear-gradient(135deg, #E8769A 0%, #F4A0BC 100%);
+  --kq-bg:            #FDF7FA;
+}
+
+/* Fuksja — mocny, intensywny */
+[data-theme="fuksja"] {
+  --kq-primary:       #D6006E;
+  --kq-primary-dark:  #9B0050;
+  --kq-primary-light: #F9C0D8;
+  --kq-primary-pale:  #FFE8F3;
+  --kq-gradient:      linear-gradient(135deg, #D6006E 0%, #9B0050 100%);
+  --kq-gradient-hero: linear-gradient(135deg, #D6006E 0%, #F0147A 100%);
+  --kq-bg:            #F7F0F4;
+}
+
 @theme inline {
   /* Pink Queen — kolory z Figmy */
-  --color-pink: #f0147a; /* główny hot pink */
-  --color-pink-light: #fadadf; /* jasny róż (tło pillów, hover) */
-  --color-pink-dark: #c4006a; /* ciemniejszy akcent */
-  --color-gold: #f5c518; /* złoty badge Kul Mocy */
-  --color-bg: #f8f5f7; /* tło strony z iOS kodu */
-  --color-navy: #1e1b2e; /* ciemna karta "Nowość" */
-  --color-navy-muted: #2d2940; /* nieco jaśniejszy granat (fallback obrazka premium) */
-  --color-gold-dark: #7a5c00; /* tekst na złotym tle (badge tier) */
-  --color-gold-warm: #b8860b; /* ciepły ciemny złoty (koszt nagrody, KM widget) */
-  --color-gold-pale: #fff3d0; /* bardzo jasne złote tło (KM widget pill) */
-  --color-pink-pale: #fff0f6; /* bardzo jasny róż (fallback obrazka standardowej karty) */
-  --color-bg-subtle: #f0eef2; /* subtelne tło (pasek postępu) */
-
-  --color-background: #f8f5f7;
-  --color-foreground: #1a1a1a;
+  --color-pink:       #F0147A;
+  --color-pink-light: #FADADF;
+  --color-pink-dark:  #C4006A;
+  --color-gold:       #F5C518;
+  --color-bg:         #F8F5F7;
+  --color-navy:       #1E1B2E;
+  --color-gold-warm:  #B8860B;
+  --color-background: #F8F5F7;
+  --color-foreground: #1A1A1A;
 }
 
 body {
-  background: #f8f5f7;
-  color: #1a1a1a;
-  font-family:
-    Plus Jakarta Sans,
-    sans-serif;
+  background: var(--kq-bg, #F8F5F7);
+  color: #1A1A1A;
+  font-family: Plus Jakarta Sans, sans-serif;
+}
+
+/* Płynne przejście motywu */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
