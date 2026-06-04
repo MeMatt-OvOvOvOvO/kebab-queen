@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
   const products = all
     .map((p): ProductWithTags => ({ ...p, tags: JSON.parse(p.tags) as string[] }))
-    .filter((p: ProductWithTags) => tags.length === 0 || tags.every((t: string) => p.tags.includes(t)));
+    .filter((p) => tags.length === 0 || tags.every((t: string) => p.tags.includes(t)));
 
   return NextResponse.json(products);
 }
