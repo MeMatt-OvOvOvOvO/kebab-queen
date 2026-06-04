@@ -10,9 +10,11 @@ export async function GET(request: NextRequest) {
     orderBy: { name: "asc" },
   });
 
+  type ProductWithTags = Omit<(typeof all)[0], "tags"> & { tags: string[] };
+
   const products = all
-    .map((p) => ({ ...p, tags: JSON.parse(p.tags) as string[] }))
-    .filter((p) => tags.length === 0 || tags.every((t) => p.tags.includes(t)));
+    .map((p): ProductWithTags => ({ ...p, tags: JSON.parse(p.tags) as string[] }))
+    .filter((p: ProductWithTags) => tags.length === 0 || tags.every((t: string) => p.tags.includes(t)));
 
   return NextResponse.json(products);
 }
