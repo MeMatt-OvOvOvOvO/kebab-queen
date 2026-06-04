@@ -86,10 +86,10 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [x] Proxy chroniący chronione trasy (401 na API, redirect na `/login` dla stron)
 - [x] Ekran logowania (`/login`)
 - [x] Ekran główny po zalogowaniu — saldo KM, skróty do sekcji
-- [ ] Wirtualna Karta — ekran z kodem QR z ID użytkownika (`qrcode.react`)
-- [ ] Portfel Kul Mocy — animacja "wpływania" punktów, poziom lojalności (1–7 gwiazdek)
-- [ ] Historia transakcji — lista z datą, opisem, liczbą punktów
-- [ ] "To co zwykle?" — przycisk na ekranie głównym, query do najczęstszego produktu z historii
+- [x] Wirtualna Karta — ekran z kodem QR z ID użytkownika (`qrcode.react`)
+- [x] Portfel Kul Mocy — saldo, poziom lojalności (1–7 gwiazdek), pasek postępu
+- [x] Historia transakcji — lista z datą, opisem, liczbą punktów, paginacja
+- [x] "To co zwykle?" — przycisk na ekranie głównym, query do najczęstszego produktu z historii
 
 ### Menu i Produkty
 
@@ -115,21 +115,21 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 
 ### System poleceń
 
-- [ ] Generowanie linku polecającego (`/join?ref=USERID`)
-- [ ] Ekran "Zaproś koleżankę" — wyświetlenie linku, licznik zaproszonych
-- [ ] Logika referral — +20 KM dla obu stron przy rejestracji przez link
+- [x] Generowanie linku polecającego (`/join?ref=USERID`)
+- [x] Ekran "Zaproś koleżankę" (`/zaproszenia`) — wyświetlenie linku, kopiowanie
+- [x] Logika referral — +20 KM dla obu stron przy rejestracji przez link
 
 ### Happy Hours
 
 - [x] Model `HappyHour` w bazie (dayOfWeek, startHour–endHour, multiplier)
 - [x] Logika mnożnika punktów przy dodawaniu transakcji
 - [x] API `/api/happy-hours` — aktywny mnożnik + harmonogram
-- [ ] Baner Happy Hours na ekranie głównym z licznikiem czasu
+- [x] Baner Happy Hours na ekranie głównym z licznikiem czasu
 
 ### Panel Admina
 
-- [ ] Strona `/admin` — formularz do ręcznego dodawania punktów użytkownikowi
-- [ ] Wyszukiwanie użytkownika po numerze telefonu
+- [x] Strona `/admin` — formularz do ręcznego dodawania punktów użytkownikowi
+- [x] Wyszukiwanie użytkownika po numerze telefonu
 
 ### UI / Design System
 
@@ -138,7 +138,7 @@ types/               # typy TS w osobnych plikach (*.type.ts, *.enum.ts)
 - [x] Strona główna — hero banner, karty ofert, sidebar z lokalizacją
 - [x] Wspólne komponenty: `Button`, `Card`, `Badge`
 - [ ] Warianty "Stopnia Różowości" (3 motywy — CSS variables)
-- [ ] Ikony Kul Mocy (1–7 gwiazdek zależnie od poziomu)
+- [x] Ikony Kul Mocy (1–7 gwiazdek zależnie od poziomu) — portfel, karta QR
 - [ ] Responsywność — mobile-first, iPhone SE → duże Androidy
 - [ ] Animacje przejść między stronami (Framer Motion)
 - [ ] Loading states i error states na wszystkich ekranach
