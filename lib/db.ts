@@ -3,9 +3,10 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
 
 function createPrismaClient() {
-  const adapter = new PrismaLibSql({
-    url: `file:${path.resolve("prisma/dev.db")}`,
-  });
+  // libsql wymaga file:/// dla ścieżek absolutnych
+  const dbPath = path.resolve(process.cwd(), "prisma/dev.db");
+  const url = `file://${dbPath}`; // file:// + /absolutna/sciezka = file:///absolutna/sciezka
+  const adapter = new PrismaLibSql({ url });
   return new PrismaClient({ adapter });
 }
 
