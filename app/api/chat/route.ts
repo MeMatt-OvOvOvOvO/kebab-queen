@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { getSession } from "@/lib/session";
-import { buildSystemPrompt } from "@/lib/queen-knowledge";
+import { buildSystemPrompt, buildMockReply } from "@/lib/queen-knowledge";
 import { prisma } from "@/lib/db";
 import type { ChatMessage } from "@/types/ChatMessage.type";
 
@@ -20,12 +20,6 @@ export async function POST(request: NextRequest) {
   if (!session)
     return NextResponse.json({ error: "Wymagane logowanie" }, { status: 401 });
 
-  if (!process.env.ANTHROPIC_API_KEY)
-    return NextResponse.json(
-      { error: "Brak konfiguracji AI (ANTHROPIC_API_KEY)." },
-      { status: 500 },
-    );
-
   const body = (await request.json()) as ChatBody;
 
   // Mapujemy historię na format SDK; wiadomości muszą zaczynać się od roli "user".
@@ -43,6 +37,36 @@ export async function POST(request: NextRequest) {
     select: { name: true },
   });
 
+  const encoder = new TextEncoder();
+
+  // Tryb demo: bez klucza API strumieniujemy deterministyczną odpowiedź z bazy wiedzy.
+  if (!process.env.ANTHROPIC_API_KEY) {
+    const lastUser = [...history].reverse().find((m) => m.role === "user");
+    const reply = await buildMockReply(lastUser?.content ?? "", {
+      userName: user?.name,
+      coords: body.coords ?? null,
+    });
+
+    const mockStream = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        // Naśladujemy strumieniowanie, dzieląc odpowiedź na drobne fragmenty.
+        for (const chunk of reply.match(/[\s\S]{1,4}/g) ?? [reply]) {
+          controller.enqueue(encoder.encode(chunk));
+          await new Promise((r) => setTimeout(r, 12));
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(mockStream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "X-Content-Type-Options": "nosniff",
+        "Cache-Control": "no-store",
+      },
+    });
+  }
+
   const systemPrompt = await buildSystemPrompt({
     userName: user?.name,
     coords: body.coords ?? null,
@@ -54,7 +78,6 @@ export async function POST(request: NextRequest) {
   }));
 
   const client = new Anthropic();
-  const encoder = new TextEncoder();
 
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
