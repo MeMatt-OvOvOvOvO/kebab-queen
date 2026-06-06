@@ -97,3 +97,62 @@ ${FAQ}
 === LOKALIZACJE ===
 ${locations}`;
 }
+
+/**
+ * Zapasowa, deterministyczna odpowiedź na wypadek braku klucza ANTHROPIC_API_KEY.
+ * Dopasowuje proste słowa kluczowe do wiedzy z bazy/FAQ/lokalizacji — żeby czat
+ * działał w trybie demo bez prawdziwego modelu.
+ */
+export async function buildMockReply(
+  userText: string,
+  opts: Opts = {},
+): Promise<string> {
+  const t = userText.toLowerCase();
+  const hello = opts.userName ? ` ${opts.userName}` : "";
+
+  // Lokalizacje
+  if (/(najbli|gdzie|lokal|adres|dojad|otwart|godzin)/.test(t)) {
+    const list = LOCATIONS.map((l) => `• ${l.name} — ${l.address} (${l.hours})`).join("\n");
+    const lead = opts.coords
+      ? "Oto nasze punkty (tryb demo nie liczy odległości po GPS):"
+      : "Oto nasze punkty:";
+    return `${lead}\n${list}`;
+  }
+
+  // Program lojalnościowy / FAQ
+  if (/(kul[ae] mocy|\bkm\b|happy|lojaln|nagrod|płatno|blik|gotówk|kart)/.test(t)) {
+    return "Za każde wydane 1 zł dostajesz 1 Kulę Mocy (w Happy Hours 12:00–14:00 podwójnie, w piątki 20:00–23:00 potrójnie!). Wymieniasz je na nagrody w zakładce Nagrody. Płacisz gotówką, kartą lub BLIK-iem.";
+  }
+
+  // Rekomendacja z menu
+  if (/(lekk|wege|ostr|polec|kalori|bezglut|gluten|cebul|kebab|pita|co zje|głodn|smaczn|dani)/.test(t)) {
+    const products = await prisma.product.findMany({
+      where: { isAvailable: true },
+      orderBy: { name: "asc" },
+    });
+    type P = (typeof products)[number];
+    const withTags = products.map((p) => ({
+      p,
+      tags: (JSON.parse(p.tags) as string[]).map((x) => x.toLowerCase()),
+    }));
+    const has = (w: string) => (x: { tags: string[] }) => x.tags.some((tag) => tag.includes(w));
+
+    let picks: { p: P; tags: string[] }[] = [];
+    if (/wege|wegetari/.test(t)) picks = withTags.filter(has("wege"));
+    else if (/ostr/.test(t)) picks = withTags.filter(has("ostr"));
+    else if (/bezglut|gluten/.test(t)) picks = withTags.filter(has("bezglut"));
+    else if (/lekk/.test(t))
+      picks = [...withTags].sort((a, b) => a.p.calories - b.p.calories).slice(0, 2);
+
+    if (picks.length === 0) picks = withTags.slice(0, 2);
+
+    const lines = picks
+      .slice(0, 2)
+      .map(({ p }) => `• ${p.name} (${p.price.toFixed(2)} zł, ${p.calories} kcal) — ${p.description}`)
+      .join("\n");
+    return `Z naszego menu polecam:\n${lines}`;
+  }
+
+  // Domyślnie
+  return `Cześć${hello}! Jestem AI Queen. Mogę doradzić w wyborze dania, opowiedzieć o składnikach i kaloriach, wyjaśnić program Kule Mocy albo podpowiedzieć, gdzie nas znajdziesz. O co chcesz zapytać?`;
+}
